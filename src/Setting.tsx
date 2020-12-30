@@ -4,7 +4,7 @@ import s from "./Setting.module.css"
 type TotalT = {
 
 
-    inc:(value: number)=>void
+
     count: number
     changeMinValue: number
     changeMaxValue: number
@@ -41,6 +41,7 @@ function Setting(props: TotalT) {
                                                         step={1}
                                                         value={props.changeMinValue}
                                                         onChange={changeNumberStart}
+
             /></div>
 
 

@@ -26,7 +26,6 @@ export type changeMinValueActionType = {
 
    export type stateType={
        count: number
-
        changeMaxValue: number
        changeMinValue: number
        error: string
@@ -37,12 +36,12 @@ export type changeMinValueActionType = {
 
 
 let initialState:stateType ={
-    count:5,
-    changeMaxValue: 10,
-    changeMinValue: 3,
+    count:0,
+    changeMaxValue: 0,
+    changeMinValue: 0,
     error: "",
-    incDisabled:false,
-    resetDisabled:false,
+    incDisabled:true,
+    resetDisabled:true,
     setSettingsButtonDisabled: false
 }
 
@@ -56,36 +55,55 @@ export const CounterReducer = (state: stateType = initialState, action: ActionsT
             if(copy.count>=copy.changeMaxValue-1){
                 copy.incDisabled=true
             }
-           copy.count=copy.count+1
+
+           copy.setSettingsButtonDisabled=true
+            copy.resetDisabled=false
+            copy.count=copy.count+1
             return {...copy}
 
         case "MAX_NUMBER_VALUE":{
             let copy={...state}
-            if(action.maxValue>=state.count){
+            if(action.maxValue>=state.changeMinValue){  //this old value state.count
                 copy.changeMaxValue=action.maxValue
-                copy.incDisabled=false
+                copy.setSettingsButtonDisabled=false
+                copy.error='Enter values and press SET'
+                copy.incDisabled=true
+                copy.resetDisabled=true
             }else {
                 copy.incDisabled=true
+                copy.resetDisabled=true
             }
 
             return {...copy}
         }
         case "MIN_NUMBER_VALUE":{
             let copy={...state}
-            if(action.minValue<0 || action.minValue>=state.changeMaxValue){
-                alert('error')
-            }
-            copy.changeMinValue=action.minValue
+            copy.setSettingsButtonDisabled=false
+            copy.error='Enter values and press SET'
+            copy.incDisabled=true
+            copy.resetDisabled=true
 
-            return {...copy}
+                copy.changeMinValue=action.minValue
+
+              //  copy.incDisabled=false
+
+            return copy
 
         }
 
         case 'RESET':{
-            return {...state, count: 0}
+            {state.incDisabled=false}
+            return {...state, count: state.changeMinValue }
         }
         case "SET":{
-            return {...state}
+
+            return {...state,
+            count: state.changeMinValue,
+                setSettingsButtonDisabled: true,
+                incDisabled:false,
+                resetDisabled:false,
+                error:''
+            }
         }
 
 

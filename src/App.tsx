@@ -4,7 +4,7 @@ import s from "./App.module.css"
 
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./Redux/store";
-import {changeMaxValueAS, changeMinValueAS, incrementAS, resetAS, stateType} from "./Redux/app-redusers";
+import {changeMaxValueAS, changeMinValueAS, incrementAS, resetAS, setAS, stateType} from "./Redux/app-redusers";
 import Setting from "./Setting";
 import CountPage from "./CountPage";
 import Bottoms from "./bottom";
@@ -17,7 +17,8 @@ function App() {
         changeMinValue,
         error,
         incDisabled,
-        resetDisabled
+        resetDisabled,
+        setSettingsButtonDisabled
                 } = useSelector<AppRootStateType, stateType>(state => state.app)
     let dispatch = useDispatch()
 
@@ -40,6 +41,10 @@ function App() {
 
     }
 
+    const handleSet = () => {
+        dispatch(setAS())
+    }
+
     return <div className={s.container}>
      <div>changeMinValue :  {changeMinValue}</div>
      <div>count:  {count}</div>
@@ -49,19 +54,19 @@ function App() {
 
         <div className={s.window}>
         <CountPage counter={count}
-                   error={''}
+                   error={error}
                    changeMinValue={changeMinValue}
                    changeMaxValue={changeMaxValue}/>
 <div className={s.click}>
             <Bottoms disabled={incDisabled} title={'start'} execFunc={inc}/>
-            <Bottoms disabled={true} title={'stop'} execFunc={()=>{}}/>
+            <Bottoms disabled={resetDisabled} title={'stop'} execFunc={reset}/>
 </div>
 
         </div>
 
 
         <div className={s.window1}>
-            <Setting count={count} inc={inc}
+            <Setting count={count}
                      changeMinValue={changeMinValue}
                      changeMaxValue={changeMaxValue}
                      maxValueFun={maxValueFun}
@@ -69,7 +74,7 @@ function App() {
             />
 
             <div>
-                <Bottoms disabled={true} title={'set'} execFunc={()=>{}}/>
+                <Bottoms disabled={setSettingsButtonDisabled} title={'set'} execFunc={handleSet}/>
             </div>
         </div>
 
