@@ -2,8 +2,7 @@ import React, {ChangeEvent, useState} from 'react';
 import s from "./Setting.module.css"
 
 type TotalT = {
-
-
+    error: string
 
     count: number
     changeMinValue: number
@@ -27,17 +26,19 @@ function Setting(props: TotalT) {
     }
 
 
-
+//const classNamev= props.error === 'Incorrect Value!'? s.inputRed : s.input
 
     return (<div className={s.total1}>
         <div className={s.click1}>
             <div className={s.one1}> Max Value <input type="number"
+                                                      className={props.error === 'Incorrect Value!' ? s.inputRed : s.input}
                                                       step={1}
                                                       value={props.changeMaxValue}
                                                       onChange={changeNumber}
             /></div>
 
             <div className={s.one1}> Start Value <input type="number"
+                                                        className={props.error === 'Incorrect Value!' ? s.inputRed : s.input}
                                                         step={1}
                                                         value={props.changeMinValue}
                                                         onChange={changeNumberStart}

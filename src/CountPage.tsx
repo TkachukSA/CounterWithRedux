@@ -14,7 +14,7 @@ function CountPage(props: TotalT) {
     return (<div className={s.total}>
 
         {props.error ? <h3 className={props.error === 'Incorrect Value!' ? s.red : s.yellow}>{props.error}</h3> :
-            <h3 className={props.counter === props.changeMinValue ? s.red : s.yellow}>{props.counter}</h3>}
+            <h2 className={props.counter === props.changeMaxValue ? s.red : s.yellow}>{props.counter}</h2>}
 
     </div> );
 }

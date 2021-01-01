@@ -1,13 +1,11 @@
-import {fchmod} from "fs";
+
 
 
 export type setActionType ={
     type: 'SET'
-
 }
 export type incrementActionType = {
     type: 'INCREMENT'
-
 }
 export type resetActionType = {
     type: 'RESET'
@@ -55,7 +53,6 @@ export const CounterReducer = (state: stateType = initialState, action: ActionsT
             if(copy.count>=copy.changeMaxValue-1){
                 copy.incDisabled=true
             }
-
            copy.setSettingsButtonDisabled=true
             copy.resetDisabled=false
             copy.count=copy.count+1
@@ -63,13 +60,20 @@ export const CounterReducer = (state: stateType = initialState, action: ActionsT
 
         case "MAX_NUMBER_VALUE":{
             let copy={...state}
-            if(action.maxValue>=state.changeMinValue){  //this old value state.count
+            if(action.maxValue > state.changeMinValue){  //this old value state.count
                 copy.changeMaxValue=action.maxValue
                 copy.setSettingsButtonDisabled=false
                 copy.error='Enter values and press SET'
                 copy.incDisabled=true
                 copy.resetDisabled=true
-            }else {
+            }if (action.maxValue <= state.changeMinValue || state.changeMinValue<0){
+                copy.changeMaxValue=action.maxValue
+                copy.setSettingsButtonDisabled=true
+                copy.error='Incorrect Value!'
+                copy.incDisabled=true
+                copy.resetDisabled=true
+
+            } else {
                 copy.incDisabled=true
                 copy.resetDisabled=true
             }
@@ -78,14 +82,21 @@ export const CounterReducer = (state: stateType = initialState, action: ActionsT
         }
         case "MIN_NUMBER_VALUE":{
             let copy={...state}
-            copy.setSettingsButtonDisabled=false
-            copy.error='Enter values and press SET'
-            copy.incDisabled=true
-            copy.resetDisabled=true
-
+            if (action.minValue<=0 || action.minValue> state.changeMaxValue){
+                copy.error='Incorrect Value!'
+                copy.setSettingsButtonDisabled=true
+                copy.incDisabled=true
+                copy.resetDisabled=true
                 copy.changeMinValue=action.minValue
+            }else {
+                copy.setSettingsButtonDisabled = false
+                copy.setSettingsButtonDisabled=false
+                copy.error = 'Enter values and press SET'
+                copy.incDisabled = true
+                copy.resetDisabled = true
+                copy.changeMinValue = action.minValue
+            }
 
-              //  copy.incDisabled=false
 
             return copy
 

@@ -38,7 +38,6 @@ function App() {
     const reset = () => {
         let action = resetAS()
         dispatch(action)
-
     }
 
     const handleSet = () => {
@@ -67,6 +66,7 @@ function App() {
 
         <div className={s.window1}>
             <Setting count={count}
+                     error={error}
                      changeMinValue={changeMinValue}
                      changeMaxValue={changeMaxValue}
                      maxValueFun={maxValueFun}
