@@ -30,23 +30,25 @@ export type changeMinValueActionType = {
        incDisabled: boolean
        resetDisabled: boolean
        setSettingsButtonDisabled: boolean
+
     }
 
 
 let initialState:stateType ={
-    count:0,
-    changeMaxValue: 0,
-    changeMinValue: 0,
+    count:          Number(localStorage.count)? Number(localStorage.maxValue): 0,
+    changeMaxValue: Number(localStorage.maxValue)? Number(localStorage.maxValue): 0,
+    changeMinValue: Number(localStorage.minValue)? Number(localStorage.minValue): 0,
     error: "",
     incDisabled:true,
     resetDisabled:true,
     setSettingsButtonDisabled: false
+
 }
 
 type ActionsType = incrementActionType | resetActionType|setActionType|changeMaxValueActionType | changeMinValueActionType
 
 export const CounterReducer = (state: stateType = initialState, action: ActionsType):stateType => {
-    debugger
+
     switch (action.type) {
         case "INCREMENT":
             let copy ={...state}
@@ -108,12 +110,17 @@ export const CounterReducer = (state: stateType = initialState, action: ActionsT
         }
         case "SET":{
 
+            localStorage.setItem('minValue', state.changeMinValue.toString())
+            localStorage.setItem('maxValue', state.changeMaxValue.toString())
+            localStorage.setItem('count', state.count.toString())
+
             return {...state,
             count: state.changeMinValue,
                 setSettingsButtonDisabled: true,
                 incDisabled:false,
                 resetDisabled:false,
-                error:''
+                error:'',
+
             }
         }
 
