@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 
 import s from "./App.module.css"
 
@@ -19,19 +19,21 @@ function App() {
         incDisabled,
         resetDisabled,
         setSettingsButtonDisabled
-                } = useSelector<AppRootStateType, stateType>(state => state.app)
+    } = useSelector<AppRootStateType, stateType>(state => state.app)
+
+
     let dispatch = useDispatch()
 
 
-    const inc=()=>{
+    const inc = () => {
         let action = incrementAS()
         dispatch(action)
     }
-    const maxValueFun=(value: number)=>{
+    const maxValueFun = (value: number) => {
         let action = changeMaxValueAS(value)
         dispatch(action)
     }
-    const minValueFun=(value: number)=>{
+    const minValueFun = (value: number) => {
         let action = changeMinValueAS(value)
         dispatch(action)
     }
@@ -45,22 +47,19 @@ function App() {
     }
 
     return <div className={s.container}>
-     <div>changeMinValue :  {changeMinValue}</div>
-     <div>count:  {count}</div>
-     <div> changeMaxValue : {changeMaxValue}</div>
-
-
+        <div>changeMinValue : {changeMinValue}</div>
+        <div>count: {count}</div>
+        <div> changeMaxValue : {changeMaxValue}</div>
 
         <div className={s.window}>
-        <CountPage counter={count}
-                   error={error}
-                   changeMinValue={changeMinValue}
-                   changeMaxValue={changeMaxValue}/>
-<div className={s.click}>
-            <Bottoms disabled={incDisabled} title={'start'} execFunc={inc}/>
-            <Bottoms disabled={resetDisabled} title={'stop'} execFunc={reset}/>
-</div>
-
+            <CountPage counter={count}
+                       error={error}
+                       changeMinValue={changeMinValue}
+                       changeMaxValue={changeMaxValue}/>
+            <div className={s.click}>
+                <Bottoms disabled={incDisabled} title={'inc'} execFunc={inc}/>
+                <Bottoms disabled={resetDisabled} title={'reset'} execFunc={reset}/>
+            </div>
         </div>
 
 

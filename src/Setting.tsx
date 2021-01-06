@@ -3,26 +3,24 @@ import s from "./Setting.module.css"
 
 type TotalT = {
     error: string
-
     count: number
     changeMinValue: number
     changeMaxValue: number
-    maxValueFun: (maxValue: number)=>void
-    minValueFun: (minValue: number)=>void
+    maxValueFun: (maxValue: number) => void
+    minValueFun: (minValue: number) => void
 }
 
 function Setting(props: TotalT) {
 
 
     const changeNumber = (e: ChangeEvent<HTMLInputElement>) => {
-        const value = (+e.currentTarget.value)
+        const value = e.currentTarget.valueAsNumber
         props.maxValueFun(value)
 
     }
     const changeNumberStart = (e: ChangeEvent<HTMLInputElement>) => {
         const value = Number(e.currentTarget.value)
         props.minValueFun(value)
-
     }
 
 
@@ -30,22 +28,22 @@ function Setting(props: TotalT) {
 
     return (<div className={s.total1}>
         <div className={s.click1}>
-            <div className={s.one1}> Max Value <input type="number"
-                                                      className={props.error === 'Incorrect Value!' ? s.inputRed : s.input}
-                                                      step={1}
-                                                      value={props.changeMaxValue}
-                                                      onChange={changeNumber}
+            <div className={s.one1}>max value
+                <input type="number"
+                       className={props.error === 'Incorrect Value!' ? s.inputRed : s.input}
+                       step={1}
+                       value={props.changeMaxValue}
+                       onChange={changeNumber}
+                />
+            </div>
+
+            <div className={s.one1}>min value <input type="number"
+                                                     className={props.error === 'Incorrect Value!' ? s.inputRed : s.input}
+                                                     step={1}
+                                                     value={props.changeMinValue}
+                                                     onChange={changeNumberStart}
+
             /></div>
-
-            <div className={s.one1}> Start Value <input type="number"
-                                                        className={props.error === 'Incorrect Value!' ? s.inputRed : s.input}
-                                                        step={1}
-                                                        value={props.changeMinValue}
-                                                        onChange={changeNumberStart}
-
-            /></div>
-
-
 
 
         </div>

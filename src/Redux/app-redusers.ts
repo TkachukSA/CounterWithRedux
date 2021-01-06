@@ -105,8 +105,8 @@ export const CounterReducer = (state: stateType = initialState, action: ActionsT
         }
 
         case 'RESET':{
-            {state.incDisabled=false}
-            return {...state, count: state.changeMinValue }
+            //{state.incDisabled=false}
+            return {...state, count: state.changeMinValue, incDisabled: false }
         }
         case "SET":{
 
