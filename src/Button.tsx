@@ -1,5 +1,5 @@
 import React from 'react';
-import s from "./bottom.module.css"
+import s from "./Button.module.css"
 
 type BottomsType={
     title: string
