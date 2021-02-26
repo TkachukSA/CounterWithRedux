@@ -24,7 +24,6 @@ function Setting(props: TotalT) {
     }
 
 
-//const classNamev= props.error === 'Incorrect Value!'? s.inputRed : s.input
 
     return (<div className={s.total1}>
         <div className={s.click1}>

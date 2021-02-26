@@ -1,13 +1,12 @@
 import React from 'react';
-
 import s from "./App.module.css"
-
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./Redux/store";
 import {changeMaxValueAS, changeMinValueAS, incrementAS, resetAS, setAS, stateType} from "./Redux/app-redusers";
 import Setting from "./Setting";
 import CountPage from "./CountPage";
-import Bottoms from "./bottom";
+import Buttons from "./Button";
+
 
 
 function App() {
@@ -20,26 +19,20 @@ function App() {
         resetDisabled,
         setSettingsButtonDisabled
     } = useSelector<AppRootStateType, stateType>(state => state.app)
-
-
     let dispatch = useDispatch()
 
 
     const inc = () => {
-        let action = incrementAS()
-        dispatch(action)
+        dispatch(incrementAS())
     }
     const maxValueFun = (value: number) => {
-        let action = changeMaxValueAS(value)
-        dispatch(action)
+        dispatch(changeMaxValueAS(value))
     }
     const minValueFun = (value: number) => {
-        let action = changeMinValueAS(value)
-        dispatch(action)
+        dispatch(changeMinValueAS(value))
     }
     const reset = () => {
-        let action = resetAS()
-        dispatch(action)
+        dispatch(resetAS())
     }
 
     const handleSet = () => {
@@ -47,9 +40,6 @@ function App() {
     }
 
     return <div className={s.container}>
-        <div>changeMinValue : {changeMinValue}</div>
-        <div>count: {count}</div>
-        <div> changeMaxValue : {changeMaxValue}</div>
 
         <div className={s.window}>
             <CountPage counter={count}
@@ -57,8 +47,8 @@ function App() {
                        changeMinValue={changeMinValue}
                        changeMaxValue={changeMaxValue}/>
             <div className={s.click}>
-                <Bottoms disabled={incDisabled} title={'inc'} execFunc={inc}/>
-                <Bottoms disabled={resetDisabled} title={'reset'} execFunc={reset}/>
+                <Buttons disabled={incDisabled} title={'inc'} execFunc={inc}/>
+                <Buttons disabled={resetDisabled} title={'reset'} execFunc={reset}/>
             </div>
         </div>
 
@@ -73,7 +63,7 @@ function App() {
             />
 
             <div>
-                <Bottoms disabled={setSettingsButtonDisabled} title={'set'} execFunc={handleSet}/>
+                <Buttons disabled={setSettingsButtonDisabled} title={'set'} execFunc={handleSet}/>
             </div>
         </div>
 

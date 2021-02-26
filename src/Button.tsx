@@ -7,7 +7,7 @@ type BottomsType={
     execFunc: ()=> void
 }
 
-function Bottoms(props: BottomsType) {
+function Buttons(props: BottomsType) {
 
     return (
         <div className={s.one}>
@@ -25,4 +25,4 @@ function Bottoms(props: BottomsType) {
     );
 }
 
-export default Bottoms;
+export default Buttons;
